@@ -1,5 +1,9 @@
 const API_KEY = "cbbd63fd";
 
+const modal = document.getElementById("movieModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.getElementById("closeModal");
+
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const movies = document.getElementById("movies");
@@ -37,6 +41,14 @@ async function searchMovie() {
         }
 
         displayMovies(data.Search);
+
+        <button
+class="details-btn"
+onclick="movieDetails('${movie.imdbID}')">
+
+View Details
+
+</button>
 
     } catch {
 
@@ -82,6 +94,3 @@ function displayMovies(list) {
 
 }
 
-const modal = document.getElementById("movieModal");
-const modalBody = document.getElementById("modalBody");
-const closeModal = document.getElementById("closeModal");

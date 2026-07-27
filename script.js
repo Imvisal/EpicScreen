@@ -107,26 +107,47 @@ async function movieDetails(id) {
 
         console.log(movie); // මේ line එක add කරන්න
 
-        modalBody.innerHTML = `
-            <div class="modal-details">
-                <img src="${movie.Poster}">
-                <div class="modal-text">
-                    <h2>${movie.Title}</h2>
-                    <p>⭐ ${movie.imdbRating}</p>
-                </div>
-            </div>
-        `;
+      modalBody.innerHTML = `
+<div class="modal-details">
 
-        modal.style.display = "flex";
+    <img src="${movie.Poster}" alt="${movie.Title}">
 
-    } catch (error) {
+    <div class="modal-text">
 
-        console.error(error); // මේක add කරන්න
-        alert(error.message);
+        <h2>${movie.Title}</h2>
 
-    }
+        <p><strong>⭐ IMDb:</strong> ${movie.imdbRating}</p>
 
-}
+        <p><strong>📅 Year:</strong> ${movie.Year}</p>
+
+        <p><strong>🎭 Genre:</strong> ${movie.Genre}</p>
+
+        <p><strong>🎬 Director:</strong> ${movie.Director}</p>
+
+        <p><strong>👨‍🎤 Actors:</strong> ${movie.Actors}</p>
+
+        <p><strong>🌍 Country:</strong> ${movie.Country}</p>
+
+        <p><strong>⏰ Runtime:</strong> ${movie.Runtime}</p>
+
+        <p><strong>📝 Plot:</strong></p>
+
+        <p>${movie.Plot}</p>
+
+        <br>
+
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(movie.Title + " Official Trailer")}" target="_blank">
+
+            <button class="details-btn">
+                ▶ Watch Trailer
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+`;
 
 // Close Modal
 closeModal.onclick = () => {

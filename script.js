@@ -105,57 +105,24 @@ async function movieDetails(id) {
 
         const movie = await response.json();
 
+        console.log(movie); // මේ line එක add කරන්න
+
         modalBody.innerHTML = `
-
-        <div class="modal-details">
-
-            <img src="${movie.Poster}">
-
-            <div class="modal-text">
-
-                <h2>${movie.Title}</h2>
-
-                <p>⭐ IMDb Rating : ${movie.imdbRating}</p>
-
-                <p>📅 Year : ${movie.Year}</p>
-
-                <p>🎭 Genre : ${movie.Genre}</p>
-
-                <p>🎬 Director : ${movie.Director}</p>
-
-                <p>👨‍🎤 Actors : ${movie.Actors}</p>
-
-                <p>🌍 Country : ${movie.Country}</p>
-
-                <p>⏰ Runtime : ${movie.Runtime}</p>
-
-                <p>${movie.Plot}</p>
-
-                <br>
-
-                <a
-                href="https://www.youtube.com/results?search_query=${encodeURIComponent(movie.Title + " Official Trailer")}"
-                target="_blank">
-
-                <button class="details-btn">
-
-                ▶ Watch Trailer
-
-                </button>
-
-                </a>
-
+            <div class="modal-details">
+                <img src="${movie.Poster}">
+                <div class="modal-text">
+                    <h2>${movie.Title}</h2>
+                    <p>⭐ ${movie.imdbRating}</p>
+                </div>
             </div>
-
-        </div>
-
         `;
 
         modal.style.display = "flex";
 
-    } catch {
+    } catch (error) {
 
-        alert("Failed to load movie details.");
+        console.error(error); // මේක add කරන්න
+        alert(error.message);
 
     }
 

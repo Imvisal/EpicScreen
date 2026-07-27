@@ -81,3 +81,7 @@ function displayMovies(list) {
     });
 
 }
+
+const modal = document.getElementById("movieModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.getElementById("closeModal");

@@ -105,65 +105,68 @@ async function movieDetails(id) {
 
         const movie = await response.json();
 
-        console.log(movie); // මේ line එක add කරන්න
+        modalBody.innerHTML = `
+        <div class="modal-details">
 
-      modalBody.innerHTML = `
-<div class="modal-details">
+            <img src="${movie.Poster}" alt="${movie.Title}">
 
-    <img src="${movie.Poster}" alt="${movie.Title}">
+            <div class="modal-text">
 
-    <div class="modal-text">
+                <h2>${movie.Title}</h2>
 
-        <h2>${movie.Title}</h2>
+                <p><strong>⭐ IMDb:</strong> ${movie.imdbRating}</p>
 
-        <p><strong>⭐ IMDb:</strong> ${movie.imdbRating}</p>
+                <p><strong>📅 Year:</strong> ${movie.Year}</p>
 
-        <p><strong>📅 Year:</strong> ${movie.Year}</p>
+                <p><strong>🎭 Genre:</strong> ${movie.Genre}</p>
 
-        <p><strong>🎭 Genre:</strong> ${movie.Genre}</p>
+                <p><strong>🎬 Director:</strong> ${movie.Director}</p>
 
-        <p><strong>🎬 Director:</strong> ${movie.Director}</p>
+                <p><strong>👨‍🎤 Actors:</strong> ${movie.Actors}</p>
 
-        <p><strong>👨‍🎤 Actors:</strong> ${movie.Actors}</p>
+                <p><strong>🌍 Country:</strong> ${movie.Country}</p>
 
-        <p><strong>🌍 Country:</strong> ${movie.Country}</p>
+                <p><strong>⏰ Runtime:</strong> ${movie.Runtime}</p>
 
-        <p><strong>⏰ Runtime:</strong> ${movie.Runtime}</p>
+                <p><strong>📝 Plot:</strong></p>
 
-        <p><strong>📝 Plot:</strong></p>
+                <p>${movie.Plot}</p>
 
-        <p>${movie.Plot}</p>
+                <br>
 
-        <br>
+                <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(movie.Title + " Official Trailer")}" target="_blank">
 
-        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(movie.Title + " Official Trailer")}" target="_blank">
+                    <button class="details-btn">
+                        ▶ Watch Trailer
+                    </button>
 
-            <button class="details-btn">
-                ▶ Watch Trailer
-            </button>
+                </a>
 
-        </a>
+            </div>
 
-    </div>
+        </div>
+        `;
 
-</div>
-`;
+        modal.style.display = "flex";
 
-// Close Modal
-closeModal.onclick = () => {
+    } catch (error) {
 
-    modal.style.display = "none";
-
-};
-
-window.onclick = (e) => {
-
-    if (e.target === modal) {
-
-        modal.style.display = "none";
+        console.error(error);
+        alert("Failed to load movie details.");
 
     }
 
+}
+
+// Close Modal
+closeModal.onclick = () => {
+    modal.style.display = "none";
+};
+
+window.onclick = (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
 };
 
 console.log(modal);

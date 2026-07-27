@@ -145,3 +145,7 @@ window.onclick = (e) => {
 
 };
 
+console.log(modal);
+console.log(modalBody);
+console.log(closeModal);
+

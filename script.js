@@ -1,21 +1,24 @@
 const API_KEY = "cbbd63fd";
 
-const modal = document.getElementById("movieModal");
-const modalBody = document.getElementById("modalBody");
-const closeModal = document.getElementById("closeModal");
-
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const movies = document.getElementById("movies");
 
+const modal = document.getElementById("movieModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.getElementById("closeModal");
+
+// Search Button
 searchBtn.addEventListener("click", searchMovie);
 
+// Enter Key
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         searchMovie();
     }
 });
 
+// Search Movie
 async function searchMovie() {
 
     const movie = searchInput.value.trim();
@@ -42,15 +45,7 @@ async function searchMovie() {
 
         displayMovies(data.Search);
 
-        <button
-class="details-btn"
-onclick="movieDetails('${movie.imdbID}')">
-
-View Details
-
-</button>
-
-    } catch {
+    } catch (error) {
 
         movies.innerHTML = "<h2>Something went wrong!</h2>";
 
@@ -58,6 +53,7 @@ View Details
 
 }
 
+// Display Movies
 function displayMovies(list) {
 
     movies.innerHTML = "";
@@ -65,7 +61,7 @@ function displayMovies(list) {
     list.forEach(movie => {
 
         movies.innerHTML += `
-
+        
         <div class="movie">
 
             <img src="${
@@ -80,8 +76,12 @@ function displayMovies(list) {
 
                 <p>📅 ${movie.Year}</p>
 
-                <button class="details-btn">
-                    View Details
+                <button
+                class="details-btn"
+                onclick="movieDetails('${movie.imdbID}')">
+
+                View Details
+
                 </button>
 
             </div>
@@ -93,4 +93,88 @@ function displayMovies(list) {
     });
 
 }
+
+// Movie Details
+async function movieDetails(id) {
+
+    try {
+
+        const response = await fetch(
+            `https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}&plot=full`
+        );
+
+        const movie = await response.json();
+
+        modalBody.innerHTML = `
+
+        <div class="modal-details">
+
+            <img src="${movie.Poster}">
+
+            <div class="modal-text">
+
+                <h2>${movie.Title}</h2>
+
+                <p>⭐ IMDb Rating : ${movie.imdbRating}</p>
+
+                <p>📅 Year : ${movie.Year}</p>
+
+                <p>🎭 Genre : ${movie.Genre}</p>
+
+                <p>🎬 Director : ${movie.Director}</p>
+
+                <p>👨‍🎤 Actors : ${movie.Actors}</p>
+
+                <p>🌍 Country : ${movie.Country}</p>
+
+                <p>⏰ Runtime : ${movie.Runtime}</p>
+
+                <p>${movie.Plot}</p>
+
+                <br>
+
+                <a
+                href="https://www.youtube.com/results?search_query=${encodeURIComponent(movie.Title + " Official Trailer")}"
+                target="_blank">
+
+                <button class="details-btn">
+
+                ▶ Watch Trailer
+
+                </button>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        `;
+
+        modal.style.display = "flex";
+
+    } catch {
+
+        alert("Failed to load movie details.");
+
+    }
+
+}
+
+// Close Modal
+closeModal.onclick = () => {
+
+    modal.style.display = "none";
+
+};
+
+window.onclick = (e) => {
+
+    if (e.target === modal) {
+
+        modal.style.display = "none";
+
+    }
+
+};
 
